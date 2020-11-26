@@ -1,3 +1,3 @@
 module.exports.userService = require('./user.service');
-module.export.activityService = require('./activity.service');
-module.export.gameService = require('./game.service');
+module.exports.activityService = require('./activity.service');
+module.exports.gameService = require('./game.service');

@@ -78,7 +78,7 @@ module.exports = router;
  *      security:
  *        - bearerAuth: []
  *      parameters:
- *      - in: query
+ *        - in: query
  *          name: users
  *          schema:
  *            type: [objectID]

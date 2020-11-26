@@ -1,14 +1,9 @@
 /* eslint-disable no-param-reassign */
 
+/**
+ * A mongoose schema plugin which applies pagination to the schema
+ */
 const paginate = (schema) => {
-  /**
-   * @typedef {Object} QueryResult
-   * @property {Document[]} results - Results found
-   * @property {number} page - Current page
-   * @property {number} limit - Maximum number of results per page
-   * @property {number} totalPages - Total number of pages
-   * @property {number} totalResults - Total number of documents
-   */
   /**
    * Query for documents with pagination
    * @param {Object} [filter] - Mongo filter
@@ -17,6 +12,15 @@ const paginate = (schema) => {
    * @param {number} [options.limit] - Maximum number of results per page (default = 10)
    * @param {number} [options.page] - Current page (default = 1)
    * @returns {Promise<QueryResult>}
+   */
+
+  /**
+   * @typedef {Object} QueryResult
+   * @property {Document[]} results - Results found
+   * @property {number} page - Current page
+   * @property {number} limit - Maximum number of results per page
+   * @property {number} totalPages - Total number of pages
+   * @property {number} totalResults - Total number of documents
    */
   schema.statics.paginate = async function (filter, options) {
     let sort = '';

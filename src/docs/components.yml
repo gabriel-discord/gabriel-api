@@ -1,5 +1,24 @@
 components:
   schemas:
+    Activity:
+      type: object
+      properties:
+        id:
+          type: string
+        discordUserId:
+          type: string
+        guilds:
+          type: array
+          items:
+            type: string
+        start:
+          type: number
+        stop:
+          type: number
+        gameId:
+          type: string
+        verified:
+          type: boolean
     User:
       type: object
       properties:

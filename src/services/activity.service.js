@@ -73,7 +73,7 @@ const updateActivityById = async (activityId, updateBody) => {
 /**
  * Delete activity by id
  * @param {ObjectId} activityId
- * @returns {Promise<User>}
+ * @returns {Promise<Activity>}
  */
 const deleteActivityById = async (activityId) => {
   const activity = await getActivityById(activityId);

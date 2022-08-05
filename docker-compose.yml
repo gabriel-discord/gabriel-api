@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  gabriel-api:
+    image: gabriel-api:latest
+    build:
+      context: .
+    environment:
+      - MONGODB_CONNECTION_URI=mongodb://mongo:27017
+      - MONGODB_DATABASE=gabriel
+      - ACTIVITY_COLLECTION=activity
+      - USER_COLLECTION=user
+      - GAME_COLLECTION=game
+    depends_on:
+      - mongo
+    ports:
+      - 3000:3000
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+
+networks:
+  gabriel:
+    external: true
+    name: gabriel

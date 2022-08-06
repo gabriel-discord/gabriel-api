@@ -12,7 +12,8 @@ const typeDefs = gql`
 
   extend type Query {
     sessions(
-      ids: [Int!]
+      from: DateTime,
+      to: DateTime,
     ): [Session!]!
   }
   # extend type Mutation {}

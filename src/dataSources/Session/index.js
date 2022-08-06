@@ -1,4 +1,4 @@
-const { Db, Collection } = require('mongodb');
+const { Db, Collection } = require("mongodb");
 
 class Session {
   constructor(config) {
@@ -11,14 +11,21 @@ class Session {
     await this.mongo.client.connect();
 
     this.db = new Db(this.mongo.client, this.mongo.dbName);
-    this.collection = new Collection(this.db, 'session');
+    this.collection = new Collection(this.db, "session");
   }
 
-  async sessions({ ids }) {
-    if (ids.length > 0) {
-      // TODO: an exercise for the reader
+  async sessions({ from, to }) {
+    const findArgs = {};
+    if (from) {
+      findArgs.start = findArgs.start ?? {};
+      findArgs.start.$gte = new Date(from);
     }
-    const docs = await this.collection.find().toArray();
+    if (to) {
+      findArgs.start = findArgs.start ?? {};
+      findArgs.start.$lte = new Date(to);
+    }
+
+    const docs = await this.collection.find(findArgs).toArray();
     return docs.map(this.transformSession);
   }
 
@@ -28,7 +35,7 @@ class Session {
 
   transformSession(session) {
     return {
-      id: this.context.utils.generateId('Session', session._id),
+      id: this.context.utils.generateId("Session", session._id),
       ...session,
     };
   }

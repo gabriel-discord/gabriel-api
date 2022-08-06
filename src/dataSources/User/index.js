@@ -10,7 +10,7 @@ class User {
     await this.mongo.client.connect();
 
     this.db = new Db(this.mongo.client, this.mongo.dbName);
-    this.collection = new Collection(this.db, this.mongo.userCollection);
+    this.collection = new Collection(this.db, 'user');
   }
 
   async getUser({ id }) {

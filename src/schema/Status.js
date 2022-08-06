@@ -1,8 +1,19 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Activity implements nodeInterface {
+  type Status implements nodeInterface {
     id: ID!
+    activity: Activity!
+    start: DateTime!
+    end: DateTime!
+    state: DiscordState!
+  }
+
+  enum DiscordState {
+    ACTIVE
+    IDLE
+    OFFLINE
+    DO_NOT_DISTURB
   }
 
   extend type Query {

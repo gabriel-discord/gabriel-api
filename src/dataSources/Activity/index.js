@@ -10,7 +10,7 @@ class Activity {
     await this.mongo.client.connect();
 
     this.db = new Db(this.mongo.client, this.mongo.dbName);
-    this.collection = new Collection(this.db, this.mongo.activityCollection);
+    this.collection = new Collection(this.db, 'activity');
   }
 
   async getActivity({ id }) {

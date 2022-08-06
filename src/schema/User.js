@@ -1,14 +1,18 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Game implements nodeInterface {
+  type User implements nodeInterface {
     id: ID!
+    discordId: Int!
+    username: String!
+    discriminator: Int!
+    displayName: String!
   }
 
   extend type Query {
-    getGame(
+    getUser(
       id: Int!
-    ): Game!
+    ): User!
   }
   # extend type Mutation {}
   # extend type Subscription {}
@@ -16,8 +20,8 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    getGame: async (_, args, context) => {
-      return await context.dataSources.Game.getGame(args);
+    getUser: async (_, args, context) => {
+      return await context.dataSources.User.getUser(args);
     },
   },
   // Mutation: {},

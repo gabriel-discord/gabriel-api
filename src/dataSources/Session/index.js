@@ -3,6 +3,7 @@ const { Db, Collection } = require('mongodb');
 class Session {
   constructor(config) {
     this.mongo = config.MongoDB;
+    this.transformSession = this.transformSession.bind(this);
   }
 
   async initialize({ context }) {
@@ -13,8 +14,12 @@ class Session {
     this.collection = new Collection(this.db, 'session');
   }
 
-  async getSession({ id }) {
-    return this.transformSession(id);
+  async sessions({ ids }) {
+    if (ids.length > 0) {
+      // TODO: an exercise for the reader
+    }
+    const docs = await this.collection.find().toArray();
+    return docs.map(this.transformSession);
   }
 
   async getSessionById(id) {
@@ -23,7 +28,8 @@ class Session {
 
   transformSession(session) {
     return {
-      id: this.context.utils.generateId('Session', session),
+      id: this.context.utils.generateId('Session', session._id),
+      ...session,
     };
   }
 }

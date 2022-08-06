@@ -11,9 +11,9 @@ const typeDefs = gql`
   }
 
   extend type Query {
-    getSession(
-      id: Int!
-    ): Session!
+    sessions(
+      ids: [Int!]
+    ): [Session!]!
   }
   # extend type Mutation {}
   # extend type Subscription {}
@@ -21,8 +21,8 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    getSession: async (_, args, context) => {
-      return await context.dataSources.Session.getSession(args);
+    sessions: async (_, args, context) => {
+      return await context.dataSources.Session.sessions(args);
     },
   },
   // Mutation: {},

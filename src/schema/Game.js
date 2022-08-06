@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   type Game implements nodeInterface {
     id: ID!
-    gameId: Int!
+    gameId: String!
     name: String!
     aliases: [String!]!
   }

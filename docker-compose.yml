@@ -19,6 +19,8 @@ services:
 
   mongo:
     image: mongo
+    volumes:
+     - ./init.js:/init.js
     ports:
       - 27017:27017
 

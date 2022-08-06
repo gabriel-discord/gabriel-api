@@ -25,8 +25,8 @@ const resolvers = [{
     node: async (_, args, context) => {
       const { type, id, data } = resolveId(args.id);
       switch (type) {
-        case 'Activity':
-          return await context.dataSources.Activity.getActivityById(id);
+        case 'Session':
+          return await context.dataSources.Session.getSessionById(id);
         case 'Game':
           return await context.dataSources.Game.getGameById(id);
         case 'User':

@@ -8,7 +8,7 @@ if (process.env.MONGODB_CONNECTION_URI && process.env.MONGODB_DATABASE) {
   config.MongoDB = {
     url: process.env.MONGODB_CONNECTION_URI,
     dbName: process.env.MONGODB_DATABASE,
-    activityCollection: process.env.ACTIVITY_COLLECTION ?? 'activity',
+    sessionCollection: process.env.SESSION_COLLECTION ?? 'session',
     userCollection: process.env.USER_COLLECTION ?? 'user',
     gameCollection: process.env.GAME_COLLECTION ?? 'game',
   };

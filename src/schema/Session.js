@@ -1,25 +1,19 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Status implements nodeInterface {
+  type Session implements nodeInterface {
     id: ID!
-    activity: Activity!
+    user: User!
+    game: Game!
     start: DateTime!
     end: DateTime!
-    state: DiscordState!
-  }
-
-  enum DiscordState {
-    ACTIVE
-    IDLE
-    OFFLINE
-    DO_NOT_DISTURB
+    events: [StatusEvent!]!
   }
 
   extend type Query {
-    getActivity(
+    getSession(
       id: Int!
-    ): Activity!
+    ): Session!
   }
   # extend type Mutation {}
   # extend type Subscription {}
@@ -27,8 +21,8 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    getActivity: async (_, args, context) => {
-      return await context.dataSources.Activity.getActivity(args);
+    sessions: async (_, args, context) => {
+      return await context.dataSources.Session.getSession(args);
     },
   },
   // Mutation: {},

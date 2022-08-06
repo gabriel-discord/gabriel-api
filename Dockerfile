@@ -4,4 +4,4 @@ COPY package*.json ./
 RUN npm ci --production
 COPY src/ .
 EXPOSE 3000/tcp
-CMD [ "node", "index.js" ]
+CMD [ "npm", "start" ]

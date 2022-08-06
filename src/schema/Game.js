@@ -28,6 +28,7 @@ const resolvers = {
 };
 
 module.exports = {
+  id: 'Game',
   typeDefs,
   resolvers,
 };

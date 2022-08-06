@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   type User implements nodeInterface {
     id: ID!
-    discordId: Int!
+    discordId: String!
     username: String!
     discriminator: Int!
     displayName: String!
@@ -29,6 +29,7 @@ const resolvers = {
 };
 
 module.exports = {
+  id: 'User',
   typeDefs,
   resolvers,
 };

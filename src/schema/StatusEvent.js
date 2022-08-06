@@ -36,6 +36,7 @@ const resolvers = {
 };
 
 module.exports = {
+  id: 'StatusEvent',
   typeDefs,
   resolvers,
 };

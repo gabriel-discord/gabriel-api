@@ -21,7 +21,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    sessions: async (_, args, context) => {
+    getSession: async (_, args, context) => {
       return await context.dataSources.Session.getSession(args);
     },
   },
@@ -30,6 +30,7 @@ const resolvers = {
 };
 
 module.exports = {
+  id: 'Session',
   typeDefs,
   resolvers,
 };

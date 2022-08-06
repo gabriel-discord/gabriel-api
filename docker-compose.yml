@@ -9,6 +9,9 @@ services:
       - MONGODB_CONNECTION_URI=mongodb://mongo:27017
       - MONGODB_DATABASE=gabriel
       - TOKEN=TOKEN
+    volumes:
+      - ./:/app:cached
+      - /app/node_modules
     depends_on:
       - mongo
     ports:

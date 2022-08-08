@@ -20,7 +20,10 @@ services:
   mongo:
     image: mongo
     volumes:
-     - ./init.js:/init.js
+     - ./init.sh:/init.sh
+     - ./sessions.json:/sessions.json
+     - ./games.json:/games.json
+     - ./users.json:/users.json
     ports:
       - 27017:27017
 

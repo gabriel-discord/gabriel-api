@@ -7,6 +7,7 @@ const BASE = __dirname;
 
 const typeDefs = [gql`
   scalar DateTime
+  scalar UUID
 
   interface nodeInterface {
     id: ID!

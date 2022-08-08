@@ -3,6 +3,7 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   type StatusEvent implements nodeInterface {
     id: ID!
+    uuid: UUID!
     session: Session!
     start: DateTime!
     end: DateTime!

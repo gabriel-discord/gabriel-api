@@ -3,6 +3,7 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   type Session implements nodeInterface {
     id: ID!
+    uuid: UUID!
     user: User!
     game: Game!
     start: DateTime!

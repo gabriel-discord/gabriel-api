@@ -13,7 +13,10 @@ class Game extends MongoDataSource {
 
   async games(args = {}) {
     const docs = await this.findByFields(args);
-    return docs.map(this.transformGame);
+    if (docs.length) return docs.map(this.transformGame);
+
+    const aliasDocs = await this.findByFields({aliases: [args.name]});
+    return aliasDocs.map(this.transformGame);
   }
 
   transformGame(game) {

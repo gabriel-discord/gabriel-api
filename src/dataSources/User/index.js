@@ -13,7 +13,10 @@ class User extends MongoDataSource {
 
   async users(args = {}) {
     const docs = await this.findByFields(args);
-    return docs.map(this.transformUser);
+    if (docs.length) return docs.map(this.transformUser);
+
+    const aliasDocs = await this.findByFields({aliases: [args.username]});
+    return aliasDocs.map(this.transformUser);
   }
 
   transformUser(user) {

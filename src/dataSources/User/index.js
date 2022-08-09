@@ -11,7 +11,7 @@ class User extends MongoDataSource {
     this.context = context;
   }
 
-  async users(args) {
+  async users(args = {}) {
     const docs = await this.findByFields(args);
     return docs.map(this.transformUser);
   }

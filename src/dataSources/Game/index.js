@@ -11,7 +11,7 @@ class Game extends MongoDataSource {
     this.context = context;
   }
 
-  async games(args) {
+  async games(args = {}) {
     const docs = await this.findByFields(args);
     return docs.map(this.transformGame);
   }

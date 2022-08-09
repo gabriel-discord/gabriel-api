@@ -1,41 +1,31 @@
-const { Db, Collection } = require("mongodb");
+const { MongoDataSource } = require('apollo-datasource-mongodb');
 
-class Session {
+class Session extends MongoDataSource {
   constructor(config) {
-    this.mongo = config.MongoDB;
+    super(config.MongoDB.client.db().collection(config.MongoDB.sessionCollection));
     this.transformSession = this.transformSession.bind(this);
   }
 
   async initialize({ context }) {
+    super.initialize();
     this.context = context;
-    await this.mongo.client.connect();
-
-    this.db = new Db(this.mongo.client, this.mongo.dbName);
-    this.collection = new Collection(this.db, "session");
   }
 
   async sessions({ from, to }) {
-    const findArgs = {};
-    if (from) {
-      findArgs.start = findArgs.start ?? {};
-      findArgs.start.$gte = new Date(from);
-    }
-    if (to) {
-      findArgs.start = findArgs.start ?? {};
-      findArgs.start.$lte = new Date(to);
-    }
+    const findArgs = {
+      start: {
+        $gte: new Date(from ?? 0),
+        $lte: new Date(to ?? Date.now()),
+      }
+    };
 
-    const docs = await this.collection.find(findArgs).toArray();
+    const docs = await this.collection.find(findArgs).sort({ start: 1 }).toArray();
     return docs.map(this.transformSession);
-  }
-
-  async getSessionById(id) {
-    return this.transformSession(id);
   }
 
   transformSession(session) {
     return {
-      id: this.context.utils.generateId("Session", session._id),
+      id: this.context.utils.generateId("Session", session.uuid),
       ...session,
     };
   }

@@ -27,6 +27,18 @@ const resolvers = {
       return await context.dataSources.Session.sessions(args);
     },
   },
+
+  Session: {
+    user: async (session, args, context) => {
+      return (await context.dataSources.User.users({uuid: session.user}))[0];
+    },
+    game: async (session, args, context) => {
+      return (await context.dataSources.Game.games({uuid: session.game}))[0];
+    },
+    events: async (session, args, context) => {
+      return session.events.map(context.dataSources.StatusEvent.transformStatusEvent);
+    },
+  },
   // Mutation: {},
   // Subscription: {},
 };

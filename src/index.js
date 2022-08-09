@@ -1,11 +1,14 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-server-core');
+const compression = require('compression');
 const utils = require('./lib/utils');
 const config = require('./config');
+const { MongoClient } = require('mongodb');
 
 try {
-  config.MongoDB.client = utils.createMongoClient(config.MongoDB.url);
+  config.MongoDB.client = new MongoClient(`${config.MongoDB.url}/${config.MongoDB.dbName}`)
+  config.MongoDB.client.connect();
 } catch (error) {
   throw new Error(`Error connecting to MongoDB @ ${config.MongoDB.url}`);
 }
@@ -28,6 +31,7 @@ const server = new ApolloServer({
 });
 
 const app = express();
+app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

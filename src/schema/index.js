@@ -27,11 +27,11 @@ const resolvers = [{
       const { type, id, data } = resolveId(args.id);
       switch (type) {
         case 'Session':
-          return await context.dataSources.Session.getSessionById(id);
+          return (await context.dataSources.Session.getSessions({uuid: id}))?.[0];
         case 'Game':
-          return await context.dataSources.Game.getGameById(id);
+          return (await context.dataSources.Game.getGames({uuid: id}))?.[0];
         case 'User':
-          return await context.dataSources.User.getUserById(id);
+          return (await context.dataSources.User.getUsers({uuid: id}))?.[0];
       }
     },
   },

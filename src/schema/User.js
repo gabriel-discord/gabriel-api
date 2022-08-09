@@ -10,10 +10,15 @@ const typeDefs = gql`
     aliases: [String!]!
   }
 
+  input UserSearch {
+    username: String
+    uuid: UUID
+  }
+
   extend type Query {
-    getUser(
-      id: Int!
-    ): User!
+    users(
+      search: UserSearch
+    ): [User!]!
   }
   # extend type Mutation {}
   # extend type Subscription {}
@@ -21,8 +26,8 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    getUser: async (_, args, context) => {
-      return await context.dataSources.User.getUser(args);
+    users: async (_, {search}, context) => {
+      return await context.dataSources.User.users(search);
     },
   },
   // Mutation: {},

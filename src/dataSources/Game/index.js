@@ -1,29 +1,27 @@
-const { Db, Collection } = require('mongodb');
+const { MongoDataSource } = require('apollo-datasource-mongodb');
 
-class Game {
+class Game extends MongoDataSource {
   constructor(config) {
-    this.mongo = config.MongoDB;
+    super(config.MongoDB.client.db().collection(config.MongoDB.gameCollection));
+    this.transformGame = this.transformGame.bind(this);
   }
 
   async initialize({ context }) {
+    super.initialize();
     this.context = context;
-    await this.mongo.client.connect();
-
-    this.db = new Db(this.mongo.client, this.mongo.dbName);
-    this.collection = new Collection(this.db, 'game');
   }
 
-  async getGame({ id }) {
-    return this.transformGame(id);
-  }
-
-  async getGameById(id) {
-    return this.transformGame(id);
+  async games(args) {
+    const docs = await this.findByFields(args);
+    return docs.map(this.transformGame);
   }
 
   transformGame(game) {
+    if (!game) return null;
+
     return {
-      id: this.context.utils.generateId('Game', game),
+      id: this.context.utils.generateId('Game', game.uuid),
+      ...game,
     };
   }
 }

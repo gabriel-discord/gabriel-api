@@ -8,10 +8,15 @@ const typeDefs = gql`
     aliases: [String!]!
   }
 
+  input GameSearch {
+    name: String
+    uuid: UUID
+  }
+
   extend type Query {
-    getGame(
-      id: Int!
-    ): Game!
+    games(
+      search: GameSearch
+    ): [Game!]!
   }
   # extend type Mutation {}
   # extend type Subscription {}
@@ -19,8 +24,8 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    getGame: async (_, args, context) => {
-      return await context.dataSources.Game.getGame(args);
+    games: async (_, {search}, context) => {
+      return await context.dataSources.Game.games(search);
     },
   },
   // Mutation: {},

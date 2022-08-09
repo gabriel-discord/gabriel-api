@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  gabriel-api:
+    image: gabriel-api:latest
+    build:
+      context: .
+    environment:
+      - MONGODB_CONNECTION_URI=mongodb://mongo:27017
+      - MONGODB_DATABASE=gabriel
+      - TOKEN=TOKEN
+    volumes:
+      - ./:/app:cached
+      - /app/node_modules
+    depends_on:
+      - mongo
+    ports:
+      - 3000:3000
+
+  mongo:
+    image: mongo
+    volumes:
+     - ./init.sh:/init.sh
+     - ./sessions.json:/sessions.json
+     - ./games.json:/games.json
+     - ./users.json:/users.json
+    ports:
+      - 27017:27017
+
+networks:
+  gabriel:
+    external: true
+    name: gabriel

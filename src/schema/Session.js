@@ -13,8 +13,10 @@ const typeDefs = gql`
 
   extend type Query {
     sessions(
-      from: DateTime,
-      to: DateTime,
+      from: DateTime
+      to: DateTime
+      game: GameSearch
+      user: UserSearch
     ): [Session!]!
   }
   # extend type Mutation {}
